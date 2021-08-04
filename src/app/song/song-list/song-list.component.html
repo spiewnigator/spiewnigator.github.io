@@ -1,0 +1,5 @@
+<ol>
+    <li *ngFor="let song of songs; let i = index">
+        <a [routerLink]="[i]">{{song.title}}</a> <span *ngIf="song.author">|{{song.author}}</span>
+    </li>
+</ol>
