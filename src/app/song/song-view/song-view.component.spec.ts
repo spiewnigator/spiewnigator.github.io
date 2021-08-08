@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { SongProviderService } from 'src/app/service/song-provider.service';
 
@@ -15,11 +15,14 @@ describe('SongViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SongViewComponent ],
-      imports: [
-        RouterTestingModule
-      ],
       providers: [
-        {provide: SongProviderService, useValue: songProviderSpy}
+        {provide: SongProviderService, useValue: songProviderSpy},
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: of(new Map([['id', 0]])),
+          },
+        },
       ]
     })
     .compileComponents();
