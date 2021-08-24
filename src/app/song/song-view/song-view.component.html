@@ -3,6 +3,6 @@
 <h3>{{song.author}}</h3>
 <hr>
 <div *ngFor="let component of song.content">
-    <p *ngFor="let line of component">{{line}}</p>
+    <p *ngFor="let line of component.lines">{{line.text}}</p>
 </div>
 </div>>
