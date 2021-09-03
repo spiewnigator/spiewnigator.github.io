@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Song } from '../model/song';
+import { parseSongRaw, Song, SongRaw } from '../model/song';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,9 @@ export class SongProviderService {
   constructor(private readonly http: HttpClient) { }
 
   public getAll(): Observable<Song[]> {
-    return this.http.get<Song[]>(this.filepath);
+    return this.http.get<SongRaw[]>(this.filepath).pipe(
+      map(raw => raw.map(r => parseSongRaw(r)))
+    );
   }
 
   public getOne(index: number): Observable<Song> {
