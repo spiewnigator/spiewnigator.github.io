@@ -1,0 +1,9 @@
+.song-entry-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

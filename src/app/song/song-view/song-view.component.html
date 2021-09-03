@@ -1,8 +1,15 @@
-<div *ngIf="song">
-<h1>{{song.title}}</h1>
-<h3>{{song.author}}</h3>
-<hr>
-<div *ngFor="let component of song.content">
-    <p *ngFor="let line of component.lines">{{line.text}}</p>
-</div>
-</div>>
+<mat-card *ngIf="song">
+    <mat-card-title-group color="primary">
+        <mat-card-title>{{song.title}}</mat-card-title>
+        <mat-card-subtitle>{{song.author}}</mat-card-subtitle>
+    </mat-card-title-group>
+    
+    <mat-card-content>
+        <div class="stanza" *ngFor="let component of song.content">
+            <div class="line" *ngFor="let line of component.lines">
+                <span>{{line.text}}</span>
+                <div class="chord">{{line.chords}}</div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

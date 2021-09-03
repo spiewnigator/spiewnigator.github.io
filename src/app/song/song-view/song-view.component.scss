@@ -1,0 +1,21 @@
+div.stanza {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+}
+
+div.line {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+div.chord {
+    white-space: nowrap;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
