@@ -8,11 +8,13 @@ div.line {
     width: 100%;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
 div.chord {
+    max-width: 100%;
+    flex-grow: 1;
     white-space: nowrap;
     text-align: right;
     display: flex;
