@@ -1,23 +1,27 @@
-<mat-toolbar color="primary">
-    <span>Śpiewnigator</span>
-    <div class="spacer"></div>
-</mat-toolbar>
+<div class="main-container">
+    <mat-toolbar color="primary">
+        <span>Śpiewnigator</span>
+        <div class="spacer"></div>
+    </mat-toolbar>
 
-<mat-form-field appearance="fill" [style.width.%]="100" color="accent">
-    <mat-icon matPrefix color="accent">search</mat-icon>
-    <mat-label>Szukaj</mat-label>
-    <input matInput type="search" [formControl]="searchControl" color="accent">
-    <button [disabled]="!searchControl.value" matSuffix mat-icon-button aria-label="Clear" color="accent"
-        (click)="searchControl.setValue('', {emitEvent: true})">
-        <mat-icon>close</mat-icon>
-    </button>
-</mat-form-field>
+    <mat-form-field appearance="fill" [style.width.%]="100" color="accent">
+        <mat-icon matPrefix color="accent">search</mat-icon>
+        <mat-label>Szukaj</mat-label>
+        <input matInput type="search" [formControl]="searchControl" color="accent">
+        <button [disabled]="!searchControl.value" matSuffix mat-icon-button aria-label="Clear" color="accent"
+            (click)="searchControl.setValue('', {emitEvent: true})">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
 
-<mat-nav-list>
-    <a mat-list-item [routerLink]="[i]" *ngFor="let song of songs$ | async; let i = index">
-        <div class="song-entry-container">
-            <span class="song-title">{{song.title}}</span>
-            <small *ngIf="song.author">{{song.author}}</small>
-        </div>
-    </a>
-</mat-nav-list>
+    <div class="list-container">
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="[i]" *ngFor="let song of songs$ | async; let i = index">
+                <div class="song-entry-container">
+                    <span class="song-title">{{song.title}}</span>
+                    <small *ngIf="song.author" class="song-title">{{song.author}}</small>
+                </div>
+            </a>
+        </mat-nav-list>
+    </div>
+</div>

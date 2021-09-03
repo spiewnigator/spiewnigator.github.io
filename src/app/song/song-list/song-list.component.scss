@@ -1,9 +1,28 @@
 .song-entry-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .song-title {
+    width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
+div.main-container {
+    max-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.list-container {
+    flex-grow: 0;
+    flex-shrink: 1;
+    max-height: calc(100vh - 56px - 72px); // a dirty little hack (substract navbar and search bar)
+    overflow-y: scroll;
+    align-items: flex-end;
+    width: 100%;
 }
