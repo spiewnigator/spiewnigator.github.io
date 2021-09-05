@@ -1,0 +1,28 @@
+div.stanza {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+}
+
+div.line {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+div.chord {
+    max-width: 100%;
+    flex-grow: 1;
+    white-space: nowrap;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+div.header {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,4 +1,5 @@
 export interface Song {
+    id: number;
     title: string;
     author?: string;
     content: SongPart[];
@@ -52,9 +53,10 @@ export function parseSongPart(part: string[]): SongPart {
 }
 
 
-export function parseSongRaw(raw: SongRaw): Song {
+export function parseSongRaw(raw: SongRaw, index: number): Song {
 
     const result = {
+        id: index,
         title: raw.title,
         author: raw.author,
         content: raw.content.map(part => parseSongPart(part))

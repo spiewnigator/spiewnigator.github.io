@@ -1,8 +1,20 @@
-<div *ngIf="song">
-<h1>{{song.title}}</h1>
-<h3>{{song.author}}</h3>
-<hr>
-<div *ngFor="let component of song.content">
-    <p *ngFor="let line of component.lines">{{line.text}}</p>
-</div>
-</div>>
+<mat-toolbar color="primary">
+    <a [routerLink]="['..']" mat-icon-button aria-label="Return to song list">
+        <mat-icon>arrow_back</mat-icon>
+    </a>
+    {{song?.title}}
+</mat-toolbar>
+
+<mat-card *ngIf="song">
+
+    <mat-card-subtitle *ngIf="song.author">Autor: {{song.author}}</mat-card-subtitle>
+
+    <mat-card-content>
+        <div class="stanza" *ngFor="let component of song.content">
+            <div class="line" *ngFor="let line of component.lines">
+                <span>{{line.text}}</span>
+                <div class="chord">{{line.chords}}</div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

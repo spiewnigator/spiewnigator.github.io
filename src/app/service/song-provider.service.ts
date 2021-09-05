@@ -15,7 +15,7 @@ export class SongProviderService {
 
   public getAll(): Observable<Song[]> {
     return this.http.get<SongRaw[]>(this.filepath).pipe(
-      map(raw => raw.map(r => parseSongRaw(r)))
+      map(raw => raw.map((r, i) => parseSongRaw(r, i)))
     );
   }
 
