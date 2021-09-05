@@ -11,7 +11,7 @@
     overflow-x: hidden;
 }
 
-div.main-container {
+:host {
     max-height: 100vh;
     width: 100%;
     display: flex;
