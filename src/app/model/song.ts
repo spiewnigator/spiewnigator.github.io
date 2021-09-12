@@ -37,19 +37,19 @@ export function parseSongLine(raw: string): SongLine {
     }
 
     if (elements.length === 2) {
-        return {text: elements[0], chords: elements[1]}
+        return { text: elements[0], chords: elements[1] }
     }
 
     if (raw[0] === '\t') {
-        return {chords: elements[0]}
+        return { chords: elements[0] }
     }
 
-    return {text: elements[0]}
+    return { text: elements[0] }
 }
 
 
 export function parseSongPart(part: string[]): SongPart {
-    return {lines: part.filter(line => line != null && line  !== '').map(line => parseSongLine(line))};
+    return { lines: part.filter(line => line != null && line !== '').map(line => parseSongLine(line)) };
 }
 
 
@@ -64,3 +64,22 @@ export function parseSongRaw(raw: SongRaw, index: number): Song {
 
     return result;
 }
+
+function songPartMatches(part: SongPart, term: string): boolean {
+    const t = term.toLocaleLowerCase('pl');
+    return part.lines.map(l => l.text?.toLocaleLowerCase().includes(t)).reduce((p, c) => !!p || !!c, false) || false
+}
+
+export function songMatches(song: Song, term: string): boolean {
+    const t = term.toLocaleLowerCase('pl');
+
+    return t === '' ||
+        song.title.toLocaleLowerCase().includes(t) ||
+        !!song.author?.toLocaleLowerCase().includes(t) ||
+        song.content.map(p => songPartMatches(p, term)).reduce((p, c) => !!p || !!c);
+}
+
+export function songSort(a: Song, b: Song): number {
+    return a.title.localeCompare(b.title, 'pl');
+}
+
