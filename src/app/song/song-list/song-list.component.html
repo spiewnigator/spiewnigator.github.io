@@ -1,25 +1,25 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="nav-bar">
     <span>Śpiewnigator</span>
     <div class="spacer"></div>
 </mat-toolbar>
 
-<mat-form-field appearance="fill" [style.width.%]="100">
-    <mat-icon matPrefix>search</mat-icon>
-    <mat-label>Szukaj</mat-label>
-    <input matInput type="search" [formControl]="searchControl">
-    <button [disabled]="!searchControl.value" matSuffix mat-icon-button aria-label="Clear"
-        (click)="searchControl.setValue('', {emitEvent: true})">
-        <mat-icon>close</mat-icon>
-    </button>
-</mat-form-field>
+<mat-card class="search-field-container">
+    <mat-form-field appearance="fill" [style.width.%]="100">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-label>Szukaj</mat-label>
+        <input matInput type="search" [formControl]="searchControl">
+        <button [disabled]="!searchControl.value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="searchControl.setValue('', {emitEvent: true})">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</mat-card>
 
-<div class="list-container">
-    <mat-nav-list>
-        <a mat-list-item [routerLink]="[song.id]" *ngFor="let song of songs$ | async">
-            <div class="song-entry-container">
-                <span class="song-title">{{song.title}}</span>
-                <small *ngIf="song.author" class="song-title">{{song.author}}</small>
-            </div>
-        </a>
-    </mat-nav-list>
-</div>
+<mat-nav-list>
+    <a mat-list-item [routerLink]="['song', song.id]" *ngFor="let song of songs$ | async">
+        <div class="song-entry-container">
+            <span class="song-title">{{song.title}}</span>
+            <small *ngIf="song.author" class="song-title">{{song.author}}</small>
+        </div>
+    </a>
+</mat-nav-list>
