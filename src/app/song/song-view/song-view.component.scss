@@ -26,3 +26,10 @@ div.header {
     display: flex;
     flex-direction: column;
 }
+
+:host {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
