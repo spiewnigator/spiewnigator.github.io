@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { SongRoutingModule } from './song-routing.module';
@@ -14,6 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider'; 
 
 
 @NgModule({
@@ -25,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
+    FormsModule,
     SongRoutingModule,
     MatCardModule,
     MatToolbarModule,
@@ -33,6 +37,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatSliderModule
   ]
 })
 export class SongModule { }
