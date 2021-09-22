@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { SongProviderService } from 'src/app/service/song-provider.service';
@@ -10,11 +11,14 @@ describe('SongViewComponent', () => {
   let fixture: ComponentFixture<SongViewComponent>;
 
   const songProviderSpy = jasmine.createSpyObj<SongProviderService>('songProviderSpy', ['getOne']);
-  songProviderSpy.getOne.and.returnValue(of({title: 'Title', content: []}))
+  songProviderSpy.getOne.and.returnValue(of({id: 1, title: 'Title', content: []}))
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SongViewComponent ],
+      imports: [
+        MatMenuModule
+      ],
       providers: [
         {provide: SongProviderService, useValue: songProviderSpy},
         {
