@@ -11,12 +11,13 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <div mat-menu-item (click)="$event.stopPropagation()">
-                <mat-slide-toggle [(ngModel)]="settings.hideChords">Ukryj akordy</mat-slide-toggle>
+            <div mat-menu-item class="dropdown-item" (click)="$event.stopPropagation()">
+                <span>Ukryj akordy</span>
+                <mat-slide-toggle [(ngModel)]="settings.hideChords"></mat-slide-toggle>
             </div>
-            <div mat-menu-item (click)="$event.stopPropagation()">
-                <mat-slider min="12" max="20" step="1" [(ngModel)]="settings.fontSize" ></mat-slider>
+            <div mat-menu-item class="dropdown-item" (click)="$event.stopPropagation()">
                 <span>Rozmiar tekstu</span>
+                <mat-slider min="12" max="20" step="1" [(ngModel)]="settings.fontSize"></mat-slider>
             </div>
         </mat-menu>
     </div>
@@ -28,7 +29,7 @@
     <mat-card-subtitle *ngIf="song.author" [style.font-size]="settings.fontSize + 'px'">Autor: {{song.author}}</mat-card-subtitle>
 
     <mat-card-content>
-        <div class="stanza" *ngFor="let component of song.content">
+        <div class="stanza" *ngFor="let component of song.content" [style.margin-bottom]="settings.fontSize + 'px'">
             <div class="line" *ngFor="let line of component.lines" [style.font-size]="settings.fontSize + 'px'">
                 <span >{{line.text}}</span>
                 <span *ngIf="!settings.hideChords" class="chord">{{line.chords}}</span>

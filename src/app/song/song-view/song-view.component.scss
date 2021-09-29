@@ -39,3 +39,9 @@ div.menu-container {
 :host ::ng-deep mat-toolbar {
     justify-content: space-between;
 }
+
+div.dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
