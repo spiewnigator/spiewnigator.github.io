@@ -12,17 +12,36 @@ div.line {
     justify-content: space-between;
 }
 
-div.chord {
+span.chord {
     max-width: 100%;
     flex-grow: 1;
     white-space: nowrap;
     text-align: right;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
 }
 
 div.header {
     display: flex;
     flex-direction: column;
+}
+
+:host {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.menu-container {
+    display: flex;
+    align-items: center;
+}
+
+:host ::ng-deep mat-toolbar {
+    justify-content: space-between;
+}
+
+div.dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

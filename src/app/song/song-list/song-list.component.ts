@@ -2,16 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
-import { Song } from 'src/app/model/song';
+import { Song, songMatches, songSort } from 'src/app/model/song';
 import { SongProviderService } from 'src/app/service/song-provider.service';
-
-function songMatches(song: Song, term: string): boolean {
-  const t = term.toLocaleLowerCase();
-
-  return t === '' ||
-    song.title.toLocaleLowerCase().includes(t) ||
-    !!song.author?.toLocaleLowerCase().includes(t);
-}
 
 @Component({
   selector: 'app-song-list',
@@ -29,7 +21,8 @@ export class SongListComponent implements OnInit {
   public readonly songs$: Observable<Song[]> = combineLatest(
     [this._songs$.asObservable(), this._searchSubject$.asObservable()]
   ).pipe(
-    map(([songs, searchTerm]) => songs.filter(s => songMatches(s, searchTerm)))
+    map(([songs, searchTerm]) => songs.filter(s => songMatches(s, searchTerm))),
+    map(songs => songs.sort(songSort)),
   );
 
   constructor(private readonly songProvider: SongProviderService) { }
