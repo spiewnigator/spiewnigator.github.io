@@ -11,5 +11,8 @@
 7. Better github pages deployment (404.html) (done)
 8. Add sticky navbar on top to fix the scrolling
 9. Sort the songs, update the search - song text search (done)
-10. Allow font size change
-11. Allow hiding chords
+10. Allow font size change (done)
+11. Allow hiding chords (done)
+12. Convert songs file encoding
+13. Add app shell
+14. Service layer song cache
