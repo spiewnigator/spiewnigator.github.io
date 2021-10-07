@@ -9,7 +9,7 @@ import { parseSongRaw, Song, SongRaw } from '../model/song';
 })
 export class SongProviderService {
 
-  private readonly filepath = 'assets/songs_structured.json';
+  public readonly filepath = 'assets/songs_structured.json';
 
   constructor(private readonly http: HttpClient) { }
 

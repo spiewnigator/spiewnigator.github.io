@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { SongProviderService } from 'src/app/service/song-provider.service';
+import { convertToParamMap } from '@angular/router';
 
 import { SongViewComponent } from './song-view.component';
 
@@ -24,7 +25,7 @@ describe('SongViewComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of(new Map([['id', 0]])),
+            paramMap: of(convertToParamMap({id: 0})),
           },
         },
       ]
@@ -38,7 +39,9 @@ describe('SongViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', fakeAsync(() => {
     expect(component).toBeTruthy();
-  });
+    tick();
+    expect(component.song).toBeDefined();
+  }));
 });

@@ -9,7 +9,8 @@
     "test": "ng test --code-coverage",
     "http-server": "http-server -p 8080 -c-1 dist/spiewnigator-angular",
     "build-deploy": "ng build --base-href=/spiewnigator-dev/",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "serve-coverage": "http-server -p 9000 -c-1 coverage/spiewnigator-angular"
   },
   "private": true,
   "dependencies": {

@@ -22,7 +22,7 @@ export class SongViewComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(
       map(p => p.get('id')),
-      switchMap(id => id ? this.songProvider.getOne(+id) : throwError('id path param is null'))
+      switchMap(id => id != null ? this.songProvider.getOne(+id) : throwError('id path param is null'))
     ).subscribe(
       data => this.song = data
     )
