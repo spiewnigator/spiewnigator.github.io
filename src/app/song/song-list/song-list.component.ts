@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { Song, songMatches, songSort } from 'src/app/model/song';
@@ -10,7 +12,7 @@ import { SongProviderService } from 'src/app/service/song-provider.service';
   templateUrl: './song-list.component.html',
   styleUrls: ['./song-list.component.scss']
 })
-export class SongListComponent implements OnInit {
+export class SongListComponent implements OnInit, AfterViewInit {
 
   public readonly searchControl = new FormControl('');
 
@@ -25,7 +27,10 @@ export class SongListComponent implements OnInit {
     map(songs => songs.sort(songSort)),
   );
 
-  constructor(private readonly songProvider: SongProviderService) { }
+  constructor(private readonly songProvider: SongProviderService, 
+              private readonly viewportScroller: ViewportScroller,
+              private readonly activatedRoute: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
     this.songProvider.getAll().subscribe(
@@ -39,6 +44,12 @@ export class SongListComponent implements OnInit {
       value => this._searchSubject$.next(value),
       error => this._searchSubject$.error(error)
     )
+
+    this.viewportScroller.setOffset([0, 128])
+  }
+
+  ngAfterViewInit(): void {
+    this.activatedRoute.fragment.subscribe(f => this.viewportScroller.scrollToAnchor(f || ''))
   }
 
 }
