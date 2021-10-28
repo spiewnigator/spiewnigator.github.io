@@ -30,7 +30,8 @@ Simple changelog of implemented and awaiting features.
 11. Allow hiding chords (done)
 12. Convert songs file encoding (done)
 13. Add app shell
-14. Service layer song cache
+14. Service layer song cache (done)
+15. Scroll back to place in list (testing)
 
 ## Misc
 
