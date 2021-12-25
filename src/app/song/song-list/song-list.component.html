@@ -17,7 +17,7 @@
 
 <mat-nav-list>
     <a mat-list-item [routerLink]="['song', song.id]" *ngFor="let song of songs$ | async">
-        <div class="song-entry-container">
+        <div id={{song.id}} class="song-entry-container">
             <span class="song-title">{{song.title}}</span>
             <small *ngIf="song.author" class="song-title">{{song.author}}</small>
         </div>

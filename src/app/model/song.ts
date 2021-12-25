@@ -53,7 +53,7 @@ export function parseSongPart(part: string[]): SongPart {
 }
 
 
-export function parseSongRaw(raw: SongRaw, index: number): Song {
+export function parseSongRaw(raw: SongRaw, index = 0): Song {
 
     const result = {
         id: index,
