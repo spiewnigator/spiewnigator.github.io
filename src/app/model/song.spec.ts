@@ -3,7 +3,7 @@ import { parseSongRaw, Song, songMatches, SongRaw } from './song';
 
 describe('Song', () => {
 
-    let realSong: SongRaw = {
+    const realSong: SongRaw = {
         title: "A piosnka wciąż płynie",
         content: [
             [
