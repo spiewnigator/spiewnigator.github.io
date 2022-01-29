@@ -4,6 +4,7 @@ import { SongProviderService } from 'src/app/service/song-provider.service';
 import { SongListComponent } from './song-list.component';
 
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 describe('SongListComponent', () => {
   let component: SongListComponent;
@@ -16,7 +17,8 @@ describe('SongListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [SongListComponent],
       providers: [
-        {provide: SongProviderService, useValue: songProviderSpy}
+        {provide: SongProviderService, useValue: songProviderSpy},
+        {provide: ActivatedRoute, useValue: {fragment: of('test')}}
       ]
     })
       .compileComponents();

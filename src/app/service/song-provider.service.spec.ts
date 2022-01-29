@@ -24,6 +24,11 @@ describe('SongProviderService', () => {
   });
 
   afterEach(() => {
+    // songs are retrieved once on startup
+    const req = httpMock.expectOne(service.filepath);
+    expect(req.request.method).toBe("GET");
+    req.flush(rawData);
+
     httpMock.verify();
   });
 
@@ -35,10 +40,6 @@ describe('SongProviderService', () => {
     const subs = service.getAll().subscribe(
       data => expect(data).toBeDefined()
     );
-
-    const req = httpMock.expectOne(service.filepath);
-    expect(req.request.method).toBe("GET");
-    req.flush(rawData);
 
     tick();
 
