@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <div class="menu-container">
-        <a [routerLink]="['/']" [fragment]="song?.id?.toString()" mat-icon-button aria-label="Return to song list">
+        <a mat-icon-button aria-label="Return to song list" (click)="location.back()">
             <mat-icon>arrow_back</mat-icon>
         </a>
         <span>{{song?.title}}</span>

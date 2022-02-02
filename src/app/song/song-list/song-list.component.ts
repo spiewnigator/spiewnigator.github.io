@@ -1,5 +1,4 @@
-import { ViewportScroller } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
@@ -12,7 +11,7 @@ import { SongProviderService } from 'src/app/service/song-provider.service';
   templateUrl: './song-list.component.html',
   styleUrls: ['./song-list.component.scss']
 })
-export class SongListComponent implements OnInit, AfterViewInit {
+export class SongListComponent implements OnInit {
 
   public readonly searchControl = new FormControl('');
 
@@ -28,7 +27,6 @@ export class SongListComponent implements OnInit, AfterViewInit {
   );
 
   constructor(private readonly songProvider: SongProviderService, 
-              private readonly viewportScroller: ViewportScroller,
               private readonly activatedRoute: ActivatedRoute
     ) { }
 
@@ -44,12 +42,5 @@ export class SongListComponent implements OnInit, AfterViewInit {
       value => this._searchSubject$.next(value),
       error => this._searchSubject$.error(error)
     )
-
-    this.viewportScroller.setOffset([0, 128])
   }
-
-  ngAfterViewInit(): void {
-    this.activatedRoute.fragment.subscribe(f => this.viewportScroller.scrollToAnchor(f || ''))
-  }
-
 }
