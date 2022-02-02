@@ -5,6 +5,7 @@ import { SongProviderService } from 'src/app/service/song-provider.service';
 import { map, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { SettingsService } from 'src/app/service/settings.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-song-view',
@@ -17,7 +18,8 @@ export class SongViewComponent implements OnInit {
 
   constructor(private readonly songProvider: SongProviderService,
     private readonly activatedRoute: ActivatedRoute,
-    public readonly settings: SettingsService) { }
+    public readonly settings: SettingsService,
+    public readonly location: Location) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(
