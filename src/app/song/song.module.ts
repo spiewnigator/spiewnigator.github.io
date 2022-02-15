@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { SongRoutingModule } from './song-routing.module';
 import { SongListComponent } from './song-list/song-list.component';
 import { SongViewComponent } from './song-view/song-view.component';
+import { HelpComponent } from './help/help.component'; 
 
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,13 +17,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider'; 
+import { MatSliderModule } from '@angular/material/slider';
+import { MatExpansionModule } from '@angular/material/expansion'; 
 
 
 @NgModule({
   declarations: [
     SongListComponent,
-    SongViewComponent
+    SongViewComponent,
+    HelpComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -39,7 +42,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatButtonModule,
     MatMenuModule,
     MatSlideToggleModule,
-    MatSliderModule
+    MatSliderModule,
+    MatExpansionModule,
   ]
 })
 export class SongModule { }
