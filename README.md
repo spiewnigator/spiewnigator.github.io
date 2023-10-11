@@ -52,14 +52,12 @@ Simple changelog of implemented and awaiting features.
 
 ### Updating packages
 
-1. update Angular core
+1. update Angular core and @angular-eslint
 2. update Angular Material
-3. update @angular-eslint
 
 Example:
 
 ```bash
-ng update @angular/core@16 @angular/cli@16
+ng update @angular/core@16 @angular/cli@16 @angular-eslint/schematics@16 
 ng update @angular/material@16
-ng update @angular-eslint/schematics@16 
 ```
