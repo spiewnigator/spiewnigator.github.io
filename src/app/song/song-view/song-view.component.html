@@ -17,14 +17,14 @@
             </div>
             <div mat-menu-item class="dropdown-item" (click)="$event.stopPropagation()">
                 <span>Rozmiar tekstu</span>
-                <mat-slider min="12" max="20" step="1" [(ngModel)]="settings.fontSize"></mat-slider>
+                <mat-slider min="12" max="20" step="1" [(ngModel)]="settings.fontSize"><input matSliderThumb /></mat-slider>
             </div>
         </mat-menu>
     </div>
 
 </mat-toolbar>
 
-<mat-card *ngIf="song">
+<mat-card appearance="outlined" *ngIf="song">
 
     <mat-card-subtitle *ngIf="song.author" [style.font-size]="settings.fontSize + 'px'">Autor: {{song.author}}</mat-card-subtitle>
 
