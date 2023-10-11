@@ -49,3 +49,15 @@ Simple changelog of implemented and awaiting features.
 * [Android asset studio](http://romannurik.github.io/AndroidAssetStudio/index.html)
 * [pwa-asset-generator](https://github.com/onderceylan/pwa-asset-generator) (use with `npx`)
 * [Maskable.app](https://maskable.app/editor) - for generating maskable icons
+
+### Updating packages
+
+1. update Angular core and @angular-eslint
+2. update Angular Material
+
+Example:
+
+```bash
+ng update @angular/core@16 @angular/cli@16 @angular-eslint/schematics@16 
+ng update @angular/material@16
+```

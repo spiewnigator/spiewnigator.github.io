@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { SongProviderService } from 'src/app/service/song-provider.service';
 })
 export class SongListComponent implements OnInit {
 
-  public readonly searchControl = new FormControl('');
+  public readonly searchControl = new UntypedFormControl('');
 
   private readonly _searchSubject$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 

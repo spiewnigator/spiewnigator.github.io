@@ -17,7 +17,7 @@
             </div>
             <div mat-menu-item class="dropdown-item" (click)="$event.stopPropagation()">
                 <span>Rozmiar tekstu</span>
-                <mat-slider min="12" max="20" step="1" [(ngModel)]="settings.fontSize"></mat-slider>
+                <mat-slider min="12" max="20" step="1"><input matSliderThumb [(ngModel)]="settings.fontSize"/></mat-slider>
             </div>
         </mat-menu>
     </div>
@@ -25,8 +25,9 @@
 </mat-toolbar>
 
 <mat-card *ngIf="song">
-
-    <mat-card-subtitle *ngIf="song.author" [style.font-size]="settings.fontSize + 'px'">Autor: {{song.author}}</mat-card-subtitle>
+    <mat-card-header>
+        <mat-card-subtitle *ngIf="song.author" [style.font-size]="settings.fontSize + 'px'">Autor: {{song.author}}</mat-card-subtitle>
+    </mat-card-header>
 
     <mat-card-content>
         <div class="stanza" *ngFor="let component of song.content" [style.margin-bottom]="settings.fontSize + 'px'">
