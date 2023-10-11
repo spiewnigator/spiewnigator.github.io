@@ -1,7 +1,7 @@
 div.stanza {
     display: flex;
     flex-direction: column;
-    margin-bottom: .5rem;
+    margin-top: .5rem;
 }
 
 div.line {
@@ -10,6 +10,7 @@ div.line {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    color: white; // text color set explicitly becasue of Angular bug: https://github.com/angular/components/issues/26153
 }
 
 span.chord {
