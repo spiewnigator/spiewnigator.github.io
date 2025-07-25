@@ -16,20 +16,20 @@ describe('SongViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SongViewComponent ],
-      imports: [
-        MatMenuModule
-      ],
-      providers: [
-        {provide: SongProviderService, useValue: songProviderSpy},
+    imports: [
+        MatMenuModule,
+        SongViewComponent
+    ],
+    providers: [
+        { provide: SongProviderService, useValue: songProviderSpy },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            paramMap: of(convertToParamMap({id: 0})),
-          },
+            provide: ActivatedRoute,
+            useValue: {
+                paramMap: of(convertToParamMap({ id: 0 })),
+            },
         },
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

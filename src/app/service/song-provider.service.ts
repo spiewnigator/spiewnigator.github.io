@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { parseSongRaw, Song, SongRaw } from '../model/song';
@@ -8,12 +8,14 @@ import { parseSongRaw, Song, SongRaw } from '../model/song';
   providedIn: 'root'
 })
 export class SongProviderService implements OnDestroy {
+  private readonly http = inject(HttpClient);
+
 
   public readonly filepath = 'assets/songs_structured.json';
 
   private readonly _songCache: Subject<Song[]> = new BehaviorSubject<Song[]>([])
 
-  constructor(private readonly http: HttpClient) { 
+  constructor() { 
     this.http.get<SongRaw[]>(this.filepath).pipe(
       map(raw => raw.map((r, i) => parseSongRaw(r, i)))
     ).subscribe(

@@ -15,12 +15,12 @@ describe('SongListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SongListComponent],
-      providers: [
-        {provide: SongProviderService, useValue: songProviderSpy},
-        {provide: ActivatedRoute, useValue: {fragment: of('test')}}
-      ]
-    })
+    imports: [SongListComponent],
+    providers: [
+        { provide: SongProviderService, useValue: songProviderSpy },
+        { provide: ActivatedRoute, useValue: { fragment: of('test') } }
+    ]
+})
       .compileComponents();
   });
 

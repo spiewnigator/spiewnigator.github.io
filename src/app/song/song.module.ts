@@ -22,28 +22,26 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
-  declarations: [
-    SongListComponent,
-    SongViewComponent,
-    HelpComponent
-  ],
-  imports: [
-    ReactiveFormsModule,
-    RouterModule,
-    CommonModule,
-    FormsModule,
-    SongRoutingModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatExpansionModule,
-  ]
+    imports: [
+        ReactiveFormsModule,
+        RouterModule,
+        CommonModule,
+        FormsModule,
+        SongRoutingModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatSlideToggleModule,
+        MatSliderModule,
+        MatExpansionModule,
+        SongListComponent,
+        SongViewComponent,
+        HelpComponent,
+    ]
 })
 export class SongModule { }
