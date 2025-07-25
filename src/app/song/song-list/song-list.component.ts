@@ -7,9 +7,10 @@ import { Song, songMatches, songSort } from 'src/app/model/song';
 import { SongProviderService } from 'src/app/service/song-provider.service';
 
 @Component({
-  selector: 'app-song-list',
-  templateUrl: './song-list.component.html',
-  styleUrls: ['./song-list.component.scss']
+    selector: 'app-song-list',
+    templateUrl: './song-list.component.html',
+    styleUrls: ['./song-list.component.scss'],
+    standalone: false
 })
 export class SongListComponent implements OnInit {
 

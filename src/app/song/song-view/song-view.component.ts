@@ -8,9 +8,10 @@ import { SettingsService } from 'src/app/service/settings.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-song-view',
-  templateUrl: './song-view.component.html',
-  styleUrls: ['./song-view.component.scss']
+    selector: 'app-song-view',
+    templateUrl: './song-view.component.html',
+    styleUrls: ['./song-view.component.scss'],
+    standalone: false
 })
 export class SongViewComponent implements OnInit {
 
