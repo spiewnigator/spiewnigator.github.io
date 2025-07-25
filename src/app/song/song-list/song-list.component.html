@@ -1,28 +1,32 @@
 <mat-toolbar color="primary" class="nav-bar">
-    <span>Śpiewnigator</span>
-    <div class="spacer"></div>
-    <button mat-icon-button color="secondary" aria-label="Help" [routerLink]="'help'">
-      <mat-icon>help_outline</mat-icon>
-    </button>
+  <span>Śpiewnigator</span>
+  <div class="spacer"></div>
+  <button mat-icon-button color="secondary" aria-label="Help" [routerLink]="'help'">
+    <mat-icon>help_outline</mat-icon>
+  </button>
 </mat-toolbar>
 
 <mat-card appearance="outlined" class="search-field-container">
-    <mat-form-field appearance="fill" [style.width.%]="100">
-        <mat-icon matPrefix>search</mat-icon>
-        <mat-label>Szukaj</mat-label>
-        <input matInput type="search" [formControl]="searchControl">
-        <button [disabled]="!searchControl.value" matSuffix mat-icon-button aria-label="Clear"
-            (click)="searchControl.setValue('', {emitEvent: true})">
-            <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
+  <mat-form-field appearance="fill" [style.width.%]="100">
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-label>Szukaj</mat-label>
+    <input matInput type="search" [formControl]="searchControl">
+    <button [disabled]="!searchControl.value" matSuffix mat-icon-button aria-label="Clear"
+      (click)="searchControl.setValue('', {emitEvent: true})">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
 </mat-card>
 
 <mat-nav-list>
-    <a mat-list-item [routerLink]="['song', song.id]" *ngFor="let song of songs$ | async">
-        <div id={{song.id}} class="song-entry-container">
-            <span class="song-title">{{song.title}}</span>
-            <small *ngIf="song.author" class="song-title">{{song.author}}</small>
-        </div>
+  @for (song of songs$ | async; track song) {
+    <a mat-list-item [routerLink]="['song', song.id]">
+      <div id={{song.id}} class="song-entry-container">
+        <span class="song-title">{{song.title}}</span>
+        @if (song.author) {
+          <small class="song-title">{{song.author}}</small>
+        }
+      </div>
     </a>
+  }
 </mat-nav-list>
