@@ -58,6 +58,6 @@ Simple changelog of implemented and awaiting features.
 Example:
 
 ```bash
-ng update @angular/core@18 @angular/cli@18 @angular-eslint/schematics@18
-ng update @angular/material@18
+npx ng update @angular/core@20 @angular/cli@20 @angular-eslint/schematics@20
+npx ng update @angular/material@20
 ```
