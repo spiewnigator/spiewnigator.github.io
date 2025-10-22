@@ -83,3 +83,11 @@ export function songSort(a: Song, b: Song): number {
     return a.title.localeCompare(b.title, 'pl');
 }
 
+export function lyricsToString(song: Song): string {
+    return song.content.map(
+        part => part.lines.map(
+            line => line.text ? line.text : ''
+        ).join('\n')
+    ).join('\n\n');
+}
+
