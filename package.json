@@ -11,6 +11,7 @@
     "http-server": "npx http-server -p 8080 -c-1 dist/spiewnigator-angular/browser",
     "build-deploy": "ng build --base-href=/spiewnigator-dev/",
     "lint": "ng lint",
+    "eslint": "eslint \"src/**/*.{ts,html}\" --cache --ext .ts,.html",
     "serve-coverage": "http-server -p 9000 -c-1 coverage/spiewnigator-angular"
   },
   "private": true,
@@ -40,6 +41,8 @@
     "@angular/build": "^20.3.12",
     "@angular/cli": "^20.3.12",
     "@angular/compiler-cli": "^20.3.15",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.38.0",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
