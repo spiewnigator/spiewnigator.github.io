@@ -31,11 +31,16 @@ export class SongProviderService implements OnDestroy {
 
     // init fuse
     this.fuseOptions = {
-      keys: ['title', 'author', {name: 'lyrics', getFn: lyricsToString}],
-      threshold: 0.4,
-      distance: 100,
+      keys: [
+        {name: 'title', weight: 5}, 
+        {name: 'author', weight: 1}, 
+        {name: 'lyrics', getFn: lyricsToString, weight: 3}
+      ],
+      threshold: 0.2,
       includeMatches: true,
-      minMatchCharLength: 2
+      minMatchCharLength: 3,
+      ignoreDiacritics: true,
+      ignoreLocation: true
     };
     // Initialize with empty array, will be set later
     this.fuse = new Fuse([], this.fuseOptions);
