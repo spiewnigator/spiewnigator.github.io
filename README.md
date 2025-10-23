@@ -1,54 +1,46 @@
 # SpiewnigatorAngular
 
-## Using
+Spiewnigator is a simple Angular Progressive Web App (PWA) that provides a small catalog of songs for Polish scouts. Main features:
 
-1. Make sure `node`, `npm` are installed.
-2. Run `npm ci` in project directory.
-3. Run `ng serve` to serve the application locally.
+- Offline capability via PWA service workers.
+- Easy distribution through GitHub Pages and browser installs.
 
-For more usefull scripts check out the `package.json` file - run them with `npm run <script>`.
+## Setup
 
-**Note:** testing requires Chrome.
+Prerequisites: Node.js and npm installed.
 
-**Note:** `http-server` dependency must be installed separately.
+Install dependencies:
 
+```bash
+# reproducible install (recommended)
+npm ci
+```
 
-## Roadmap
+Start development server:
 
-Simple changelog of implemented and awaiting features.
+```bash
+npm run start
+```
 
-1. Parse song content (chords) (done)
-2. Basic cong display styling (done)
-3. Basic application styling (done)
-4. PWA (done)
-5. Deploy to github pages (done)
-6. Prepare new icon set and PWA styling (theme color) (done)
-7. Better github pages deployment (404.html) (done)
-8. Add sticky navbar on top to fix the scrolling
-9. Sort the songs, update the search - song text search (done)
-10. Allow font size change (done)
-11. Allow hiding chords (done)
-12. Convert songs file encoding (done)
-13. Add app shell
-14. Service layer song cache (done)
-15. Scroll back to place in list (testing)
+Run tests and lint:
 
-## Misc
+```bash
+npm run test      # runs unit tests with coverage
+npm run test-ci   # headless CI run
+npm run eslint    # static linting
+```
 
-### Guides
+Production build:
 
-* [Service worker introduction](https://developers.google.com/web/fundamentals/primers/service-workers)
-* [PWA with angular](https://web.dev/creating-pwa-with-angular-cli/)
-* [Storage for the web](https://web.dev/storage-for-the-web/)
-* [Adaptive (maskable) icons](https://web.dev/maskable-icon/)
-* [App shell model](https://developers.google.com/web/fundamentals/architecture/app-shell)
-* PWA guide: [part 1](https://www.monterail.com/blog/pwa-working-offline) and [part 2](https://www.monterail.com/blog/pwa-offline-dynamic-data)
+```bash
+npm run build
+```
 
-### Assest tools
+Server build files
 
-* [Android asset studio](http://romannurik.github.io/AndroidAssetStudio/index.html)
-* [pwa-asset-generator](https://github.com/onderceylan/pwa-asset-generator) (use with `npx`)
-* [Maskable.app](https://maskable.app/editor) - for generating maskable icons
+```bash
+npm run http-server
+```
 
 ### Updating packages
 
@@ -61,3 +53,47 @@ Example:
 npx ng update @angular/core@20 @angular/cli@20 @angular-eslint/schematics@20
 npx ng update @angular/material@20
 ```
+
+### Notes on testing
+
+Testing requires Chrome. The `test-ci` script runs tests headless using ChromeHeadless.
+
+## Roadmap & guides
+
+Implemented / done:
+
+1. Parse song content (chords)
+2. Basic song display styling
+3. Basic application styling
+4. PWA support
+5. Deploy to GitHub Pages
+6. Icon / PWA styling updates
+7. Better GitHub Pages fallback (404)
+9. Sorting songs / search improvements
+10. Font size control
+11. Toggle chords visibility
+12. Convert songs file encoding
+14. Service layer song cache
+
+Planned / in progress:
+
+8. Add sticky navbar to stabilize scrolling
+13. Add app shell
+15. Scroll-back position persistence in list (testing)
+
+Helpful external guides:
+
+- Service worker primer: https://developers.google.com/web/fundamentals/primers/service-workers
+- PWA with Angular: https://web.dev/creating-pwa-with-angular-cli/
+- Storage for the web: https://web.dev/storage-for-the-web/
+- Maskable/adaptive icons: https://web.dev/maskable-icon/
+- App shell model: https://developers.google.com/web/fundamentals/architecture/app-shell
+- PWA guide:
+    - part 1: https://www.monterail.com/blog/pwa-working-offline
+    - part 2: https://www.monterail.com/blog/pwa-offline-dynamic-data
+
+### Assest tools
+
+* [Android asset studio](http://romannurik.github.io/AndroidAssetStudio/index.html)
+* [pwa-asset-generator](https://github.com/onderceylan/pwa-asset-generator) (use with `npx`)
+* [Maskable.app](https://maskable.app/editor) - for generating maskable icons

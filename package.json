@@ -11,8 +11,7 @@
     "http-server": "npx http-server -p 8080 -c-1 dist/spiewnigator-angular/browser",
     "build-deploy": "ng build --base-href=/spiewnigator-dev/",
     "lint": "ng lint",
-    "eslint": "eslint \"src/**/*.{ts,html}\" --cache --ext .ts,.html",
-    "serve-coverage": "http-server -p 9000 -c-1 coverage/spiewnigator-angular"
+    "eslint": "eslint \"src/**/*.{ts,html}\" --cache --ext .ts,.html"
   },
   "private": true,
   "dependencies": {
