@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, debounceTime, switchMap } from 'rxjs/operators';
-import { Song, songMatches, songSort } from 'src/app/model/song';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { Song } from 'src/app/model/song';
 import { SongProviderService } from 'src/app/service/song-provider.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
@@ -29,13 +29,6 @@ export class SongListComponent implements OnInit {
   private readonly _searchSubject$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   private readonly _songs$: BehaviorSubject<Song[]> = new BehaviorSubject<Song[]>([]);
-
-  // public readonly songs$: Observable<Song[]> = combineLatest(
-  //   [this._songs$.asObservable(), this._searchSubject$.asObservable()]
-  // ).pipe(
-  //   map(([songs, searchTerm]) => songs.filter(s => songMatches(s, searchTerm))),
-  //   map(songs => songs.sort(songSort)),
-  // );
 
   public readonly songs$: Observable<Song[]> = this._searchSubject$.asObservable().pipe(
     switchMap(query => this.songProvider.search(query))
