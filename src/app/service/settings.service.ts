@@ -37,6 +37,7 @@ export class SettingsService {
       const parsed = JSON.parse(raw);
       this._settings = { ...this.defaults, ...parsed };
     } catch (e) {
+      console.warn('Failed to load settings, using defaults:', e);
       this._settings = { ...this.defaults };
     }
     this.settings$.next(this._settings);
