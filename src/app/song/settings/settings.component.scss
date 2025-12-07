@@ -1,0 +1,53 @@
+:host {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container,
+.settings-container {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 12px;
+}
+
+.label {
+  flex: 1 1 auto;
+  color: rgba(255,255,255,0.87);
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.control {
+  flex: 0 0 320px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+:host ::ng-deep mat-toolbar {
+  justify-content: flex-start;
+}
+
+/* keep hint aligned and subtle */
+mat-hint {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+@media (min-width: 600px) {
+  .settings-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-top: 12px;
+  }
+}

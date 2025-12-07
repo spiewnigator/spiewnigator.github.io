@@ -10,17 +10,18 @@ describe('SongListComponent', () => {
   let component: SongListComponent;
   let fixture: ComponentFixture<SongListComponent>;
 
-  const songProviderSpy = jasmine.createSpyObj<SongProviderService>('songProviderSpy', ['getAll']);
+  const songProviderSpy = jasmine.createSpyObj<SongProviderService>('songProviderSpy', ['getAll', 'search']);
   songProviderSpy.getAll.and.returnValue(of([]))
+  songProviderSpy.search.and.returnValue(of([]))
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [SongListComponent],
-    providers: [
+      imports: [SongListComponent],
+      providers: [
         { provide: SongProviderService, useValue: songProviderSpy },
         { provide: ActivatedRoute, useValue: { fragment: of('test') } }
-    ]
-})
+      ]
+    })
       .compileComponents();
   });
 

@@ -45,3 +45,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+.eslintcache
+
+# exclude build info file
+src/assets/build-info.json
