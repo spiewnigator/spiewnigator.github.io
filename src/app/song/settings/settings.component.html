@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">Settings</mat-toolbar>
+
+<div class="container settings-container">
+	<div class="settings-row">
+		<div class="label">Ukryj akordy</div>
+		<div class="control">
+			<mat-slide-toggle aria-label="Ukryj akordy" [checked]="settings.hideChords" (change)="setHideChords($event.checked)"></mat-slide-toggle>
+		</div>
+	</div>
+
+	<div class="settings-row">
+		<div class="label">Rozmiar tekstu (px)</div>
+		<div class="control">
+			<mat-slider min="12" max="20" step="1">
+				<input matSliderThumb [(ngModel)]="settings.fontSize" (ngModelChange)="setFontSize($any($event))" />
+			</mat-slider>
+		</div>
+	</div>
+
+	<div class="settings-row">
+		<div class="label">(Eksperymentalne) Włącz wyszukiwanie przybliżone</div>
+		<div class="control">
+			<mat-slide-toggle aria-label="Wyszukiwanie przybliżone" [checked]="settings.enableFuzzySearch" (change)="setEnableFuzzySearch($event.checked)"></mat-slide-toggle>
+		</div>
+	</div>
+</div>

@@ -7,6 +7,7 @@ import { SongRoutingModule } from './song-routing.module';
 import { SongListComponent } from './song-list/song-list.component';
 import { SongViewComponent } from './song-view/song-view.component';
 import { HelpComponent } from './help/help.component'; 
+import { SettingsComponent } from './settings/settings.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -42,6 +43,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         SongListComponent,
         SongViewComponent,
         HelpComponent,
+        SettingsComponent,
     ]
 })
 export class SongModule { }
