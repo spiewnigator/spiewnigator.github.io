@@ -47,3 +47,6 @@ testem.log
 Thumbs.db
 
 .eslintcache
+
+# exclude build info file
+src/assets/build-info.json
