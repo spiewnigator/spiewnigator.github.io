@@ -81,7 +81,9 @@ export class SongProviderService implements OnDestroy {
 
   public search(query: string): Observable<Song[]> {
     if (!query || query.trim().length === 0) {
-      return this.getAll();
+      return this.getAll().pipe(
+        map(songs => songs.sort(songSort))
+      );
     }
 
     // If fuzzy search is disabled, use the standard search implementation
