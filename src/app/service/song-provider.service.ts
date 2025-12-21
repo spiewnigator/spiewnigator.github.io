@@ -82,7 +82,7 @@ export class SongProviderService implements OnDestroy {
   public search(query: string): Observable<Song[]> {
     if (!query || query.trim().length === 0) {
       return this.getAll().pipe(
-        map(songs => songs.sort(songSort))
+        map(songs => [...songs].sort(songSort))
       );
     }
 
