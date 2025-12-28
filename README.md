@@ -50,8 +50,8 @@ npm run http-server
 Example:
 
 ```bash
-npx ng update @angular/core@20 @angular/cli@20 @angular-eslint/schematics@20
-npx ng update @angular/material@20
+npx ng update @angular/core@21 @angular/cli@21 @angular-eslint/schematics@21
+npx ng update @angular/material@21
 ```
 
 ### Notes on testing

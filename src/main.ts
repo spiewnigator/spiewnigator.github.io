@@ -1,4 +1,4 @@
-import { enableProdMode, importProvidersFrom, LOCALE_ID } from '@angular/core';
+import { enableProdMode, importProvidersFrom, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
 
@@ -19,7 +19,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, SongModule, AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', {
+        provideZoneChangeDetection(),importProvidersFrom(BrowserModule, SongModule, AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
             // Register the ServiceWorker as soon as the app is stable
             // or after 30 seconds (whichever comes first).
