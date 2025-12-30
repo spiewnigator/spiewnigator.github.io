@@ -35,5 +35,9 @@
         <small>Build: {{ buildTimestamp | date: 'short' }}</small>
       </div>
     }
+
+    <div class="build-info">
+        <small>{{ isUpdateAvailableMessage$ | async }}</small>
+    </div>
 </div>
 
