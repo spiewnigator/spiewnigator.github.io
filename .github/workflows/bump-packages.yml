@@ -1,0 +1,49 @@
+name: Bump Packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump-packages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run package update script
+        run: bash ./bump_packages.sh
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+          TITLE="chore: bump angular packages"
+          BODY="This PR updates Angular and related dependencies to the latest version.\n\nCreated by GitHub Actions workflow."
+          
+          gh pr create \
+            --base master \
+            --head $BRANCH_NAME \
+            --title "$TITLE" \
+            --body "$BODY"
