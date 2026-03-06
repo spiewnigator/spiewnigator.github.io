@@ -25,6 +25,9 @@ git commit --amend --no-edit
 # step 6: update remaining packages
 npm update
 
+# step 6.5: fix audit issues
+npm audit fix
+
 # step 7: ammend commit
 git add .
 git commit --amend --no-edit
