@@ -26,7 +26,8 @@ git commit --amend --no-edit
 npm update
 
 # step 6.5: fix audit issues
-npm audit fix
+# always return true to avoid failing the script if there are fixes that require breaking changes
+npm audit fix || true
 
 # step 7: ammend commit
 git add .
