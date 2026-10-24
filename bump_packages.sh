@@ -1,6 +1,6 @@
 set -e
 
-ANGULAR_VERSION=21
+ANGULAR_VERSION=22
 
 # step 1: checkout new branch and save it's name
 BRANCH_NAME="bump_packages_$(date +%Y%m%d)"
