@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Song } from 'src/app/model/song';
 import { SongProviderService } from 'src/app/service/song-provider.service';
@@ -16,6 +16,7 @@ import { MatCard, MatCardHeader, MatCardSubtitle, MatCardContent } from '@angula
     selector: 'app-song-view',
     templateUrl: './song-view.component.html',
     styleUrls: ['./song-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatToolbar, MatIconButton, MatIcon, ReactiveFormsModule, FormsModule, MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, RouterLink]
 })
 export class SongViewComponent implements OnInit {

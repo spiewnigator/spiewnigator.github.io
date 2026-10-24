@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SettingsService } from '../../../app/service/settings.service';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [MatToolbar, MatSlideToggle, MatSlider, MatSliderThumb, FormsModule],
   templateUrl: './settings.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit, OnDestroy {

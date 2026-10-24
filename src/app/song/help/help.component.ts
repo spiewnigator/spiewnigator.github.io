@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { Observable, from } from 'rxjs';
@@ -9,6 +9,7 @@ import { AppUpdateService } from 'src/app/service/app-update.service';
     selector: 'app-help',
     templateUrl: './help.component.html',
     styleUrls: ['./help.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatToolbar, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, DatePipe, AsyncPipe]
 })
 export class HelpComponent implements OnInit {

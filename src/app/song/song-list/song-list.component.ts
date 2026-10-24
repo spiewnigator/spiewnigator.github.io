@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -18,6 +18,7 @@ import { AsyncPipe } from '@angular/common';
     selector: 'app-song-list',
     templateUrl: './song-list.component.html',
     styleUrls: ['./song-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatToolbar, MatIconButton, RouterLink, MatIcon, MatCard, MatFormField, MatPrefix, MatLabel, MatInput, ReactiveFormsModule, MatSuffix, MatNavList, MatListItem, AsyncPipe]
 })
 export class SongListComponent implements OnInit {
