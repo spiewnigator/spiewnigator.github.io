@@ -3,7 +3,7 @@ import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
 
 import { environment } from './environments/environment';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { SongModule } from './app/song/song.module';
 import { AppRoutingModule } from './app/app-routing.module';
@@ -25,7 +25,7 @@ bootstrapApplication(AppComponent, {
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         })),
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideAnimations(),
         { provide: LOCALE_ID, useValue: 'pl-PL' }
     ]

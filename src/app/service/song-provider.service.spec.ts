@@ -3,7 +3,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { SongProviderService } from './song-provider.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { SongRaw } from '../model/song';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 describe('SongProviderService', () => {
   let service: SongProviderService;
@@ -17,7 +17,7 @@ describe('SongProviderService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     imports: [],
-    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
 });
     service = TestBed.inject(SongProviderService);
     httpMock = TestBed.inject(HttpTestingController);
