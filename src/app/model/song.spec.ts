@@ -27,7 +27,7 @@ describe('Song', () => {
                 "Sierpniową noc."
             ]
         ]
-    }
+    };
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({}).compileComponents();
@@ -36,23 +36,23 @@ describe('Song', () => {
     it('should parse real song', () => {
         const result = parseSongRaw(realSong);
         expect(result.id).toEqual(0);
-        expect(result.title).toEqual(realSong.title)
-        expect(result.content.length).toEqual(2)
+        expect(result.title).toEqual(realSong.title);
+        expect(result.content.length).toEqual(2);
     });
 
     it('should check if song matches', () => {
         const parsed = parseSongRaw(realSong);
-        expect(songMatches(parsed, 'piosnka')).toBeTrue()
-        expect(songMatches(parsed, 'unosi ją wiatr')).toBeTrue()
-        expect(songMatches(parsed, 'sierpniową')).toBeTrue()
+        expect(songMatches(parsed, 'piosnka')).toBe(true);
+        expect(songMatches(parsed, 'unosi ją wiatr')).toBe(true);
+        expect(songMatches(parsed, 'sierpniową')).toBe(true);
 
-        const songWithAuthor: Song = {id: 0, title: 'Test', author: 'a', content: []}
-        expect(songMatches(songWithAuthor, 'a')).toBeTrue()
+        const songWithAuthor: Song = { id: 0, title: 'Test', author: 'a', content: [] };
+        expect(songMatches(songWithAuthor, 'a')).toBe(true);
     });
 
     it('should throw exception on edge cases in song parsing', () => {
-        const case1: SongRaw = {title: 'TEST', content: [['a', 'b\tc\td']]}
-        expect(() => parseSongRaw(case1)).toThrowError('Raw song line has too many tab characters')
+        const case1: SongRaw = { title: 'TEST', content: [['a', 'b\tc\td']] };
+        expect(() => parseSongRaw(case1)).toThrowError('Raw song line has too many tab characters');
     });
 
 

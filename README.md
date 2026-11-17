@@ -56,7 +56,7 @@ npx ng update @angular/material@21
 
 ### Notes on testing
 
-Testing requires Chrome. The `test-ci` script runs tests headless using ChromeHeadless.
+Tests run with Vitest in a Node/jsdom environment — no browser installation required. The `test` script also generates a coverage report.
 
 ## Roadmap & guides
 
