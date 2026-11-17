@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">Settings</mat-toolbar>
 
+@if (settings$ | async; as settings) {
 <div class="container settings-container">
 	<div class="settings-row">
 		<div class="label">Ukryj akordy</div>
@@ -12,7 +13,7 @@
 		<div class="label">Rozmiar tekstu (px)</div>
 		<div class="control">
 			<mat-slider min="12" max="20" step="1">
-				<input matSliderThumb [(ngModel)]="settings.fontSize" (ngModelChange)="setFontSize($any($event))" />
+				<input matSliderThumb [ngModel]="settings.fontSize" (ngModelChange)="setFontSize($any($event))" />
 			</mat-slider>
 		</div>
 	</div>
@@ -24,3 +25,4 @@
 		</div>
 	</div>
 </div>
+}
