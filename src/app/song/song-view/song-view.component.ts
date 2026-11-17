@@ -26,6 +26,6 @@ export class SongViewComponent {
 
   public readonly song$ = this.activatedRoute.paramMap.pipe(
     map(p => p.get('id')),
-    switchMap(id => id != null ? this.songProvider.getOne(+id) : throwError('id path param is null'))
+    switchMap(id => id != null ? this.songProvider.getOne(+id) : throwError(() => new Error('id path param is null')))
   );
 }
