@@ -7,7 +7,6 @@ import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/com
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { SongModule } from './app/song/song.module';
 import { AppRoutingModule } from './app/app-routing.module';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app/app.component';
 
@@ -26,7 +25,6 @@ bootstrapApplication(AppComponent, {
             registrationStrategy: 'registerWhenStable:30000'
         })),
         provideHttpClient(withXhr(), withInterceptorsFromDi()),
-        provideAnimations(),
         { provide: LOCALE_ID, useValue: 'pl-PL' }
     ]
 })
