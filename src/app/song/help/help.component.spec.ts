@@ -16,8 +16,12 @@ describe('HelpComponent', () => {
   });
 
   const mockBuildInfo = (): void => {
+    // Response.json() returns a native promise that fakeAsync's tick() cannot flush,
+    // so stub with zone-patched promises instead.
     spyOn(window, 'fetch').and.returnValue(
-      Promise.resolve(new Response(JSON.stringify({ timestamp: '2026-01-02T03:04:05.000Z' })))
+      Promise.resolve({
+        json: () => Promise.resolve({ timestamp: '2026-01-02T03:04:05.000Z' }),
+      } as Response)
     );
   };
 

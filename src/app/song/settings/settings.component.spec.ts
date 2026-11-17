@@ -10,8 +10,9 @@ describe('SettingsComponent', () => {
   let fixture: ComponentFixture<SettingsComponent>;
   let settings: SettingsService;
 
-  const toggle = (label: string): MatSlideToggle =>
-    fixture.debugElement.query(By.css(`mat-slide-toggle[aria-label="${label}"]`)).componentInstance as MatSlideToggle;
+  // aria-label is an Angular input on MatSlideToggle, not a DOM attribute, so query by directive.
+  const toggle = (index: number): MatSlideToggle =>
+    fixture.debugElement.queryAll(By.directive(MatSlideToggle))[index].componentInstance as MatSlideToggle;
 
   beforeEach(async () => {
     localStorage.clear();
@@ -31,19 +32,22 @@ describe('SettingsComponent', () => {
   });
 
   it('should reflect external settings changes via async pipe under OnPush', () => {
-    expect(toggle('Ukryj akordy').checked).toBeFalse();
-    expect(toggle('Wyszukiwanie przybliżone').checked).toBeFalse();
+    expect(toggle(0).checked).toBeFalse();
+    expect(toggle(1).checked).toBeFalse();
 
     settings.hideChords = true;
     settings.enableFuzzySearch = true;
     fixture.detectChanges();
 
-    expect(toggle('Ukryj akordy').checked).toBeTrue();
-    expect(toggle('Wyszukiwanie przybliżone').checked).toBeTrue();
+    expect(toggle(0).checked).toBeTrue();
+    expect(toggle(1).checked).toBeTrue();
   });
 
   it('should write toggle changes through the settings service', () => {
-    toggle('Ukryj akordy').toggle();
+    // toggle() does not emit the `change` output; a real click does.
+    const buttons: NodeListOf<HTMLButtonElement> =
+      fixture.nativeElement.querySelectorAll('mat-slide-toggle button.mdc-switch');
+    buttons[0].click();
     fixture.detectChanges();
     expect(settings.hideChords).toBeTrue();
   });
