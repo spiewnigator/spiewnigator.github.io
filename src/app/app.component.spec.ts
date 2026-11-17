@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SwUpdate } from '@angular/service-worker';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -8,6 +10,17 @@ describe('AppComponent', () => {
     imports: [
         RouterTestingModule,
         AppComponent
+    ],
+    providers: [
+        {
+            provide: SwUpdate,
+            useValue: {
+                isEnabled: true,
+                versionUpdates: of(),
+                checkForUpdate: () => Promise.resolve(false),
+                activateUpdate: () => Promise.resolve()
+            }
+        }
     ],
 }).compileComponents();
   });
