@@ -1,3 +1,9 @@
 <div class="songs-app-background">
+    @if (updateAvailable$ | async) {
+        <div class="update-banner" role="status">
+            <span>Dostępna jest nowa wersja aplikacji.</span>
+            <button class="update-button" (click)="applyUpdate()">Aktualizuj</button>
+        </div>
+    }
     <router-outlet></router-outlet>
 </div>
