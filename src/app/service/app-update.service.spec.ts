@@ -10,9 +10,15 @@ describe('AppUpdateService', () => {
   let checkForUpdate: ReturnType<typeof vi.fn>;
   let activateUpdate: ReturnType<typeof vi.fn>;
 
-  const configure = (enabled: boolean, hasUpdate = false): void => {
+  const configure = (
+    enabled: boolean,
+    hasUpdate = false,
+    checkImpl?: () => Promise<boolean>
+  ): void => {
     versionUpdates = new Subject<{ type: string }>();
-    checkForUpdate = vi.fn().mockResolvedValue(hasUpdate);
+    checkForUpdate = vi.fn().mockImplementation(
+      checkImpl ?? (() => Promise.resolve(hasUpdate))
+    );
     activateUpdate = vi.fn().mockResolvedValue(undefined);
 
     TestBed.configureTestingModule({
@@ -55,6 +61,21 @@ describe('AppUpdateService', () => {
       })
     );
     expect(available).toBe(true);
+  });
+
+  it('reports a failed check instead of claiming the app is up to date', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    configure(true, false, () => Promise.reject(new Error('offline')));
+
+    const message = await new Promise<string>(resolve =>
+      service.isUpdateAvailable$().subscribe(value => {
+        if (value !== 'Checking for updates…') resolve(value);
+      })
+    );
+
+    expect(message).toContain('An error occurred');
+    expect(consoleError).toHaveBeenCalled();
+    consoleError.mockRestore();
   });
 
   it('reacts to a VERSION_READY event from the service worker', async () => {

@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SwUpdate } from '@angular/service-worker';
-import { BehaviorSubject, interval, map, Observable, of, startWith, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, from, interval, map, Observable, of, startWith, switchMap } from 'rxjs';
 
 const CHECK_INTERVAL_MS = 5 * 60 * 1000;
+
+type UpdateCheckState = 'checking' | 'available' | 'up-to-date' | 'failed';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +13,13 @@ const CHECK_INTERVAL_MS = 5 * 60 * 1000;
 export class AppUpdateService {
 
   private readonly updates = inject(SwUpdate);
-  private readonly updateAvailable = new BehaviorSubject<boolean | null>(null);
+  private readonly state = new BehaviorSubject<UpdateCheckState>('checking');
 
-  public readonly updateAvailable$ = this.updateAvailable.asObservable();
+  public readonly updateAvailable$ = this.state.pipe(
+    // Keep failures and the initial check indistinguishable from "no result"
+    // so the update banner is only shown when an update is actually known.
+    map(state => (state === 'checking' || state === 'failed') ? null : state === 'available')
+  );
 
   constructor() {
     if (!this.updates.isEnabled) {
@@ -24,19 +30,27 @@ export class AppUpdateService {
     // triggers a check), independently of our periodic polling.
     this.updates.versionUpdates.pipe(takeUntilDestroyed()).subscribe(event => {
       if (event.type === 'VERSION_READY') {
-        this.updateAvailable.next(true);
+        this.state.next('available');
       }
     });
 
     interval(CHECK_INTERVAL_MS).pipe(
       startWith(0),
-      switchMap(() => this.updates.checkForUpdate().catch(() => false)),
+      switchMap(() => from(this.updates.checkForUpdate()).pipe(
+        map(hasUpdate => ({ hasUpdate, failed: false })),
+        catchError(error => {
+          console.error('Error while checking for updates:', error);
+          return of({ hasUpdate: false, failed: true });
+        })
+      )),
       takeUntilDestroyed()
-    ).subscribe(hasUpdate => {
-      if (hasUpdate) {
-        this.updateAvailable.next(true);
-      } else if (this.updateAvailable.value === null) {
-        this.updateAvailable.next(false);
+    ).subscribe(({ hasUpdate, failed }) => {
+      if (failed) {
+        this.state.next('failed');
+      } else if (hasUpdate) {
+        this.state.next('available');
+      } else if (this.state.value === 'checking' || this.state.value === 'failed') {
+        this.state.next('up-to-date');
       }
     });
   }
@@ -46,14 +60,18 @@ export class AppUpdateService {
       return of('Check for update is not available in this browser.');
     }
 
-    return this.updateAvailable$.pipe(
-      map(available => {
-        if (available === null) {
+    return this.state.pipe(
+      map(state => {
+        if (state === 'failed') {
+          return 'An error occurred while checking for updates. Try again later.';
+        }
+        if (state === 'checking') {
           return 'Checking for updates…';
         }
-        return available
-          ? 'A new version of the application is available. Use the update button at the top of the page.'
-          : 'You are using the latest version of the application.';
+        if (state === 'available') {
+          return 'A new version of the application is available. Use the update button at the top of the page.';
+        }
+        return 'You are using the latest version of the application.';
       })
     );
   }
