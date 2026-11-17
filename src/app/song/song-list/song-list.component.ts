@@ -18,7 +18,7 @@ import { AsyncPipe } from '@angular/common';
     selector: 'app-song-list',
     templateUrl: './song-list.component.html',
     styleUrls: ['./song-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [MatToolbar, MatIconButton, RouterLink, MatIcon, MatCard, MatFormField, MatPrefix, MatLabel, MatInput, ReactiveFormsModule, MatSuffix, MatNavList, MatListItem, AsyncPipe]
 })
 export class SongListComponent implements OnInit {

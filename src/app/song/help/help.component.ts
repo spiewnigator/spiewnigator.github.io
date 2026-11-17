@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { Observable, from } from 'rxjs';
@@ -9,22 +9,15 @@ import { AppUpdateService } from 'src/app/service/app-update.service';
     selector: 'app-help',
     templateUrl: './help.component.html',
     styleUrls: ['./help.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [MatToolbar, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, DatePipe, AsyncPipe]
 })
-export class HelpComponent implements OnInit {
-
+export class HelpComponent {
     private readonly appUpdateService = inject(AppUpdateService);
 
-    public buildTimestamp?: Date;
+    public readonly isUpdateAvailableMessage$ = this.appUpdateService.isUpdateAvailable$();
 
-    public isUpdateAvailableMessage$ = this.appUpdateService.isUpdateAvailable$();
-
-    ngOnInit(): void {
-        this.getBuildTimestamp().subscribe(ts => {
-            this.buildTimestamp = ts;
-        });
-    }
+    public readonly buildTimestamp$ = this.getBuildTimestamp();
 
     private getBuildTimestamp(): Observable<Date | undefined> {
         const promise = fetch('/assets/build-info.json')

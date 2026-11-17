@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { SettingsService } from '../../../app/service/settings.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -9,30 +9,15 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [MatToolbar, MatSlideToggle, MatSlider, MatSliderThumb, FormsModule],
+  imports: [MatToolbar, MatSlideToggle, MatSlider, MatSliderThumb, FormsModule, AsyncPipe],
   templateUrl: './settings.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent {
   private readonly settingsService = inject(SettingsService);
-  private sub?: Subscription;
 
-  public settings = {
-    hideChords: false,
-    fontSize: 14,
-    enableFuzzySearch: false,
-  };
-
-  ngOnInit(): void {
-    this.sub = this.settingsService.settings$.subscribe((s) => {
-      this.settings = { ...s };
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
-  }
+  public readonly settings$ = this.settingsService.settings$;
 
   public setHideChords(v: boolean): void {
     this.settingsService.hideChords = v;

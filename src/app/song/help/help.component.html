@@ -30,7 +30,7 @@
         </mat-expansion-panel>
     </mat-accordion>
     
-    @if (buildTimestamp) {
+    @if (buildTimestamp$ | async; as buildTimestamp) {
       <div class="build-info">
         <small>Build: {{ buildTimestamp | date: 'short' }}</small>
       </div>

@@ -3,7 +3,7 @@
     <a mat-icon-button aria-label="Return to song list" (click)="location.back()">
       <mat-icon>arrow_back</mat-icon>
     </a>
-    <span>{{song?.title}}</span>
+    <span>{{ (song$ | async)?.title }}</span>
   </div>
 
   <button mat-icon-button color="secondary" aria-label="Settings" [routerLink]="'/settings'">
@@ -12,26 +12,28 @@
 
 </mat-toolbar>
 
-@if (song) {
-  <mat-card>
-    <mat-card-header>
-      @if (song.author) {
-        <mat-card-subtitle [style.font-size]="settings.fontSize + 'px'">Autor: {{song.author}}</mat-card-subtitle>
-      }
-    </mat-card-header>
-    <mat-card-content>
-      @for (component of song.content; track component) {
-        <div class="stanza" [style.margin-bottom]="settings.fontSize + 'px'">
-          @for (line of component.lines; track line) {
-            <div class="line" [style.font-size]="settings.fontSize + 'px'">
-              <span >{{line.text}}</span>
-              @if (!settings.hideChords) {
-                <span class="chord">{{line.chords}}</span>
-              }
-            </div>
-          }
-        </div>
-      }
-    </mat-card-content>
-  </mat-card>
+@if (song$ | async; as song) {
+  @if (settings$ | async; as settings) {
+    <mat-card>
+      <mat-card-header>
+        @if (song.author) {
+          <mat-card-subtitle [style.font-size]="settings.fontSize + 'px'">Autor: {{song.author}}</mat-card-subtitle>
+        }
+      </mat-card-header>
+      <mat-card-content>
+        @for (component of song.content; track component) {
+          <div class="stanza" [style.margin-bottom]="settings.fontSize + 'px'">
+            @for (line of component.lines; track line) {
+              <div class="line" [style.font-size]="settings.fontSize + 'px'">
+                <span>{{line.text}}</span>
+                @if (!settings.hideChords) {
+                  <span class="chord">{{line.chords}}</span>
+                }
+              </div>
+            }
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+  }
 }
