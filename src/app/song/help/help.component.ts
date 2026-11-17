@@ -20,7 +20,7 @@ export class HelpComponent {
     public readonly buildTimestamp$ = this.getBuildTimestamp();
 
     private getBuildTimestamp(): Observable<Date | undefined> {
-        const promise = fetch('/assets/build-info.json')
+        const promise = fetch('assets/build-info.json')
             .then(res => res.json())
             .then(data => new Date(data.timestamp))
             .catch((e) => {
