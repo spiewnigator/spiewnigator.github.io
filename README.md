@@ -59,7 +59,18 @@ npx ng update @angular/material@22
 
 ### Notes on testing
 
-Tests run with Vitest in a Node/jsdom environment — no browser installation required. The `test` script also generates a coverage report.
+Unit tests run with Vitest in a Node/jsdom environment — no browser installation required. The `test` script also generates a coverage report.
+
+End-to-end tests run in a real Chromium via Playwright against `npm run start` (`http://127.0.0.1:4200`). Install the browser once, then run:
+
+```bash
+npx playwright install chromium
+npm run test:e2e        # headless
+npm run test:e2e:ui     # interactive UI mode
+npm run test:e2e:report # open the last HTML report
+```
+
+The service worker is enabled only in production builds, so offline behavior is not covered by this suite.
 
 ## Roadmap
 
