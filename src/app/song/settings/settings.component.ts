@@ -32,4 +32,8 @@ export class SettingsComponent {
   public setEnableFuzzySearch(v: boolean): void {
     this.settingsService.enableFuzzySearch = v;
   }
+
+  public setBoldText(v: boolean): void {
+    this.settingsService.boldText = v;
+  }
 }

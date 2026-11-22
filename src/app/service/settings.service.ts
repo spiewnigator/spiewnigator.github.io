@@ -12,8 +12,9 @@ export class SettingsService {
 
   private defaults = {
     hideChords: false,
-    fontSize: 14,
-    enableFuzzySearch: false
+    fontSize: 16,
+    enableFuzzySearch: false,
+    boldText: false
   };
 
   private _settings = { ...this.defaults };
@@ -78,6 +79,16 @@ export class SettingsService {
   public set enableFuzzySearch(v: boolean) {
     if (this._settings.enableFuzzySearch === v) return;
     this._settings.enableFuzzySearch = v;
+    this.persist();
+    this.settings$.next(this._settings);
+  }
+
+  public get boldText(): boolean {
+    return this._settings.boldText;
+  }
+  public set boldText(v: boolean) {
+    if (this._settings.boldText === v) return;
+    this._settings.boldText = v;
     this.persist();
     this.settings$.next(this._settings);
   }

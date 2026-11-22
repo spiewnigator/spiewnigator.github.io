@@ -33,20 +33,25 @@ describe('SettingsComponent', () => {
     it('should reflect external settings changes via async pipe under OnPush', () => {
         expect(toggle(0).checked).toBe(false);
         expect(toggle(1).checked).toBe(false);
+        expect(toggle(2).checked).toBe(false);
 
         settings.hideChords = true;
+        settings.boldText = true;
         settings.enableFuzzySearch = true;
         fixture.detectChanges();
 
         expect(toggle(0).checked).toBe(true);
         expect(toggle(1).checked).toBe(true);
+        expect(toggle(2).checked).toBe(true);
     });
 
     it('should write toggle changes through the settings service', () => {
         // toggle() does not emit the `change` output; a real click does.
         const buttons: NodeListOf<HTMLButtonElement> = fixture.nativeElement.querySelectorAll('mat-slide-toggle button.mdc-switch');
         buttons[0].click();
+        buttons[1].click();
         fixture.detectChanges();
         expect(settings.hideChords).toBe(true);
+        expect(settings.boldText).toBe(true);
     });
 });

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Śpiewnigator — readability comparison</title>
+<style>
+  /* Roboto — the app's current font (same subsets as src/styles.scss) */
+  @font-face {
+    font-family: 'Roboto'; font-style: normal; font-weight: 300 500; font-display: swap;
+    src: url('../src/assets/fonts/roboto-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+      U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Roboto'; font-style: normal; font-weight: 300 500; font-display: swap;
+    src: url('../src/assets/fonts/roboto-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+      U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+      U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* Candidate face — licensed under SIL OFL 1.1, see readability-fonts/OFL.txt */
+  @font-face {
+    font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap;
+    src: url('readability-fonts/atkinson-hyperlegible-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+      U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap;
+    src: url('readability-fonts/atkinson-hyperlegible-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+      U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+      U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  :root { --size: 14; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #303030; color: #fff; font-family: Roboto, sans-serif; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  .intro { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,.87); margin: 0 0 16px; }
+
+  .controls {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;
+    padding: 12px; margin-bottom: 16px; background: #424242; border-radius: 8px;
+  }
+  .controls label { font-size: 14px; }
+  .seg { display: flex; gap: 4px; flex-wrap: wrap; }
+  .seg button {
+    background: transparent; color: #fff; border: 1px solid #777; border-radius: 4px;
+    padding: 6px 10px; font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .seg button[aria-pressed="true"] { background: #c2185b; border-color: #c2185b; }
+  input[type="range"] { vertical-align: middle; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .panel { background: #424242; border: 1px solid #5a5a5a; border-radius: 8px; padding: 14px; min-width: 0; }
+  .panel[hidden] { display: none; }
+  .panel__head { display: flex; align-items: baseline; gap: 8px; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #5a5a5a; }
+  .panel__tag { font-weight: 700; color: #ef9a9a; }
+  .panel__title { font-size: 15px; font-weight: 500; }
+  .panel__desc { font-size: 12px; color: rgba(255,255,255,.7); }
+  .panel__body { max-height: 60vh; overflow: auto; }
+
+  /* Exactly the app's markup: .stanza > .line > span + span.chord */
+  .stanza { display: flex; flex-direction: column; }
+  .line { width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+  .chord { max-width: 100%; flex-grow: 1; white-space: nowrap; text-align: right; }
+  body.hide-chords .chord { display: none; }
+
+  .variant-a .line {
+    font-family: Roboto, sans-serif; font-weight: 400;
+    font-size: calc(var(--size) * 1px); line-height: normal; letter-spacing: normal; color: #fff;
+  }
+  .variant-a .stanza { margin-top: .5rem; margin-bottom: calc(var(--size) * 1px); }
+
+  .variant-b .line, .variant-c .line, .variant-d .line {
+    font-size: calc((var(--size) + 2) * 1px); line-height: 1.55; letter-spacing: .01em; color: #E8EAED;
+  }
+  .variant-b, .variant-c { font-family: Roboto, sans-serif; font-weight: 400; }
+  .variant-c { font-weight: 500; }
+  .variant-d { font-family: 'Atkinson Hyperlegible', Roboto, sans-serif; font-weight: 400; }
+  .variant-b .stanza, .variant-c .stanza, .variant-d .stanza { font-size: calc((var(--size) + 2) * 1px); margin: 0 0 1em; }
+
+  #fontStatus { font-size: 12px; color: rgba(255,255,255,.7); }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .panel__body { max-height: none; overflow: visible; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Śpiewnigator — readability comparison</h1>
+  <p class="intro">
+    One real song ("Watra", from <code>songs_structured.json</code>) rendered four ways with the app's own markup.
+    Open this file on your phone, in the dark, at arm's length. Variants B–D are always 2 px larger than the base size
+    to mirror the default change shipped in the app. Chords are unchanged everywhere; the toggle only hides them for a clearer look at the lyrics.
+    <span id="fontStatus"></span>
+  </p>
+
+  <div class="controls">
+    <label>Base size (panel A): <input id="size" type="range" min="12" max="20" step="1" value="14"> <output id="sizeOut">14 px</output></label>
+    <label><input id="hideChords" type="checkbox"> Hide chords</label>
+    <div class="seg" role="group" aria-label="Show variant">
+      <button type="button" data-show="all" aria-pressed="true">All</button>
+      <button type="button" data-show="a" aria-pressed="false">A</button>
+      <button type="button" data-show="b" aria-pressed="false">B</button>
+      <button type="button" data-show="c" aria-pressed="false">C</button>
+      <button type="button" data-show="d" aria-pressed="false">D</button>
+    </div>
+  </div>
+
+  <main class="grid" id="grid">
+    <section class="panel variant-a" data-variant="a">
+      <div class="panel__head"><span class="panel__tag">A</span><span class="panel__title">Baseline — before this change</span></div>
+      <div class="panel__body"></div>
+    </section>
+    <section class="panel variant-b" data-variant="b">
+      <div class="panel__head"><span class="panel__tag">B</span><span class="panel__title">Spacing only</span><span class="panel__desc">Roboto 400 · lh 1.55 · tracking .01em · off-white</span></div>
+      <div class="panel__body"></div>
+    </section>
+    <section class="panel variant-c" data-variant="c">
+      <div class="panel__head"><span class="panel__tag">C</span><span class="panel__title">Heavier weight</span><span class="panel__desc">B, but Roboto 500</span></div>
+      <div class="panel__body"></div>
+    </section>
+    <section class="panel variant-d" data-variant="d">
+      <div class="panel__head"><span class="panel__tag">D</span><span class="panel__title">Alternate face</span><span class="panel__desc">B, but Atkinson Hyperlegible 400</span></div>
+      <div class="panel__body"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Excerpt of the real song, in the same raw format as songs_structured.json.
+  const SONG = {
+    title: 'Watra',
+    content: [
+      ["Zapłonęło już ognisko\td g", "Gdzieś daleko światła miast\tC d", "Siądźmy wszyscy w kręgu ognia\td g", "Poza nami trudy dnia\tC d", "Słońce śpi za horyzontem\td g", "Przez sen nuci pieśni las\tC d", "Noc nadeszła z piosenkami\td g", "Które śpiewa każdy z nas\tC d"],
+      ["A ja pójdę dalej\td g", "Drogą przez świat\tC d", "Gdzieś pod sosnami\td g", "Gwiżdże wiatr\tC d"],
+      ["Poza nami kilometry\td g", "Nowych przygód, nowych dróg\tC d", "Słońce zaszło, noc nadchodzi\td g", "Czas ułożyć się do snu\tC d", "Zgasła nieba pięciolinia\td g", "Wraz z nią zgasły nuty gwiazd\tC d", "Noc nadeszła z piosenkami\td g", "Które śpiewa każdy z nas\tC d"],
+      ["A ja pójdę dalej..."],
+      ["Już czerwona kula słońca\td g", "Długi rozpoczyna marsz\tC d", "I jak dawniej w kręgu watry\td g", "Blady świt zastanie nas\tC d"],
+      ["A ja pójdę dalej..."]
+    ]
+  };
+
+  // Mirrors parseSongLine() in src/app/model/song.ts.
+  function parseLine(raw) {
+    const parts = raw.split('\t');
+    return parts.length === 2 ? { text: parts[0], chords: parts[1] } : { text: parts[0] };
+  }
+
+  function renderSong(target) {
+    for (const part of SONG.content) {
+      const stanza = document.createElement('div');
+      stanza.className = 'stanza';
+      for (const raw of part) {
+        const parsed = parseLine(raw);
+        const line = document.createElement('div');
+        line.className = 'line';
+        const text = document.createElement('span');
+        text.textContent = parsed.text ?? '';
+        line.appendChild(text);
+        if (parsed.chords != null) {
+          const chord = document.createElement('span');
+          chord.className = 'chord';
+          chord.textContent = parsed.chords;
+          line.appendChild(chord);
+        }
+        stanza.appendChild(line);
+      }
+      target.appendChild(stanza);
+    }
+  }
+
+  for (const panel of document.querySelectorAll('.panel')) {
+    renderSong(panel.querySelector('.panel__body'));
+  }
+
+  const size = document.getElementById('size');
+  const sizeOut = document.getElementById('sizeOut');
+  size.addEventListener('input', () => {
+    document.documentElement.style.setProperty('--size', size.value);
+    sizeOut.textContent = size.value + ' px';
+  });
+
+  document.getElementById('hideChords').addEventListener('change', e => {
+    document.body.classList.toggle('hide-chords', e.target.checked);
+  });
+
+  const buttons = [...document.querySelectorAll('.seg button')];
+  buttons.forEach(button => button.addEventListener('click', () => {
+    const show = button.dataset.show;
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+    document.querySelectorAll('.panel').forEach(panel => {
+      panel.hidden = show !== 'all' && panel.dataset.variant !== show;
+    });
+  }));
+
+  document.fonts.ready.then(() => {
+    const ok = document.fonts.check('16px "Atkinson Hyperlegible"');
+    document.getElementById('fontStatus').textContent =
+      ok ? 'Candidate font loaded.' : 'Candidate font did NOT load — variant D is a fallback.';
+  });
+</script>
+</body>
+</html>

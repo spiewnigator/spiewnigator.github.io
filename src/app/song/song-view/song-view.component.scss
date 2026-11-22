@@ -1,7 +1,11 @@
 div.stanza {
     display: flex;
     flex-direction: column;
-    margin-top: .5rem;
+    margin: 0 0 1em;
+}
+
+div.stanza:last-child {
+    margin-bottom: 0;
 }
 
 div.line {
@@ -10,7 +14,15 @@ div.line {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    color: white; // text color set explicitly becasue of Angular bug: https://github.com/angular/components/issues/26153
+    line-height: 1.55;
+    letter-spacing: .01em;
+    // Off-white reduces halation at night and still clears WCAG AA comfortably.
+    // The color is set explicitly because of Angular bug: https://github.com/angular/components/issues/26153
+    color: #E8EAED;
+}
+
+div.line.bold-text {
+    font-weight: 700;
 }
 
 span.chord {
@@ -18,6 +30,7 @@ span.chord {
     flex-grow: 1;
     white-space: nowrap;
     text-align: right;
+    font-weight: 400; // chords keep their normal weight when lyrics are bolded
 }
 
 div.header {
