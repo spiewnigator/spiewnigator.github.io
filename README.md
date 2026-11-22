@@ -63,9 +63,8 @@ Tests run with Vitest in a Node/jsdom environment — no browser installation re
 
 ## Roadmap
 
-Remaining work / ideas (in no particular order):
+Remaining work / ideas:
 
-- Add app shell.
 - Persist scroll-back position in the song list (testing).
 
 ## Guides
