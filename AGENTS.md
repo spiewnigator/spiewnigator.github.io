@@ -87,7 +87,7 @@ Playwright specs live in `e2e/`, outside `src/`, so neither the app build nor Vi
 * Prefer `getByRole` / `getByLabel` locators; use CSS only for structural containers without an accessible role.
 * Use Playwright's auto-retrying assertions — never `waitForTimeout`. The song search debounces for 200 ms.
 * Derive expectations from `src/assets/songs_structured.json` instead of hard-coding the catalog size.
-* Keep offline/service-worker scenarios separate from the default suite; the service worker is enabled only in production builds.
+* Keep offline/service-worker scenarios separate from the default suite; the service worker is enabled only in production builds. The `@pwa`-tagged spec uses `playwright.pwa.config.ts` and runs via `npm run test:e2e:pwa`, which needs port 8080 free (stop any manual `npm run http-server` first).
 
 ## Agent browser
 
