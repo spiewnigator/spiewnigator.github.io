@@ -1,6 +1,7 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { Song } from 'src/app/model/song';
@@ -24,6 +25,8 @@ import { AsyncPipe } from '@angular/common';
 export class SongListComponent implements OnInit {
   private readonly songProvider = inject(SongProviderService);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   public readonly searchControl = new UntypedFormControl('');
 
@@ -38,15 +41,32 @@ export class SongListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const query = this.activatedRoute.snapshot.queryParamMap.get('q') ?? '';
+    if (query) {
+      this.searchControl.setValue(query, { emitEvent: false });
+    }
+    this._searchSubject$.next(query);
+
     this.songProvider.getAll().subscribe(
       data => this._songs$.next(data),
       error => this._songs$.error(error)
     );
 
     this.searchControl.valueChanges.pipe(
-      debounceTime(200)
+      debounceTime(200),
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe(
-      value => this._searchSubject$.next(value),
+      value => {
+        const searchQuery = value ?? '';
+        this._searchSubject$.next(searchQuery);
+        void this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: { q: searchQuery || null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+          scroll: 'manual'
+        });
+      },
       error => this._searchSubject$.error(error)
     )
   }
