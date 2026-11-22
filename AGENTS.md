@@ -82,3 +82,7 @@ Playwright specs live in `e2e/`, outside `src/`, so neither the app build nor Vi
 * Use Playwright's auto-retrying assertions — never `waitForTimeout`. The song search debounces for 200 ms.
 * Derive expectations from `src/assets/songs_structured.json` instead of hard-coding the catalog size.
 * Keep offline/service-worker scenarios separate from the default suite; the service worker is enabled only in production builds.
+
+## Agent browser
+
+For interactive, agent-driven browser work, Playwright MCP is registered project-wide in `opencode.json` with guardrails in `playwright-mcp.config.json`. See [docs/agent-browser.md](docs/agent-browser.md); do not enable `browser_evaluate` or `browser_run_code_unsafe` without reviewing the risk.

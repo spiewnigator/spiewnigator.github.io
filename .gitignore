@@ -56,3 +56,6 @@ src/assets/build-info.json
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Agent browser artifacts
+/.agent-browser-output/

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "--no-install",
+          "playwright-mcp",
+          "--config",
+          "playwright-mcp.config.json"
+        ],
+        "cwd": "."
+      }
+    }
+  },
+  "permissions": [
+    {
+      "action": "playwright_browser_evaluate",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "playwright_browser_run_code_unsafe",
+      "resource": "*",
+      "effect": "deny"
+    }
+  ]
+}
