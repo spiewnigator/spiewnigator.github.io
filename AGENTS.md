@@ -18,7 +18,7 @@ This is an Angular application with TypeScript.
 
 * **Offline-first PWA**: Uses built-in PWA features (service worker caching) to deliver content offline. Songs are defined as static assets cached by the PWA — no backend required.
 * **Zero maintenance cost**: No backend service to maintain. App is hosted on GitHub Pages.
-* **Customizable settings**: Font size, chord visibility, and fuzzy search toggle — all persisted to browser localStorage.
+* **Customizable settings**: Font size, bold text, chord visibility, and fuzzy search toggle — all persisted to browser localStorage.
 * **Search functionality**: Standard and fuzzy search (optional) for finding songs quickly.
 
 ## Architecture
@@ -26,6 +26,12 @@ This is an Angular application with TypeScript.
 * Static song content stored as JSON in `src/assets/`
 * Service worker caches assets for offline access; the songs JSON is prefetched, and fonts are self-hosted so the app renders correctly offline
 * Settings persisted client-side (no server sync needed)
+
+## Text rendering
+
+Songs are read at night at arm's length, so lyrics use a 16 px default, `line-height: 1.55`, `letter-spacing: .01em`, and off-white `#E8EAED` on the dark background. Stanza gaps are in `em` so they scale with the size slider.
+
+The "Pogrubiony tekst" (`boldText`) setting applies Roboto 700 to lyrics only; chords stay at 400. Self-hosted Roboto is a variable font, so `src/styles.scss` declares `font-weight: 100 900` to get a real 700 without extra assets. Chord placement and the song JSON are intentionally left alone.
 
 ## Songs
 
