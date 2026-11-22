@@ -70,7 +70,7 @@ npm run test:e2e:ui     # interactive UI mode
 npm run test:e2e:report # open the last HTML report
 ```
 
-The service worker is enabled only in production builds, so offline behavior is not covered by this suite.
+The service worker is enabled only in production builds, so offline behavior is not covered by this suite. Run the separate `@pwa`-tagged suite with `npm run test:e2e:pwa`; it builds the production app, serves it locally on port 8080, and verifies the catalog loads offline. Port 8080 must be free — stop any manually started `npm run http-server` first.
 
 ### Agent browser
 

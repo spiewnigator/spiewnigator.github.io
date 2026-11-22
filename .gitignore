@@ -54,6 +54,7 @@ src/assets/build-info.json
 # Playwright
 /test-results/
 /playwright-report/
+/playwright-report-pwa/
 /blob-report/
 /playwright/.cache/
 
