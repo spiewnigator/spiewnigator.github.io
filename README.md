@@ -72,6 +72,10 @@ npm run test:e2e:report # open the last HTML report
 
 The service worker is enabled only in production builds, so offline behavior is not covered by this suite.
 
+### Agent browser
+
+An autonomous agent can drive the app in a real Chromium via Playwright MCP. Setup, tools, guardrails and an example workflow are in [docs/agent-browser.md](docs/agent-browser.md).
+
 ## Roadmap
 
 Remaining work / ideas:
