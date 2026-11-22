@@ -2,7 +2,7 @@
   "name": "Śpiewnigator",
   "short_name": "Śpiewnigator",
   "theme_color": "#c2185b",
-  "background_color": "#fafafa",
+  "background_color": "#303030",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

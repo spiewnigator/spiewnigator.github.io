@@ -1,9 +1,12 @@
-# SpiewnigatorAngular
+# Śpiewnigator
 
-Spiewnigator is a simple Angular Progressive Web App (PWA) that provides a small catalog of songs for Polish scouts. Main features:
+Śpiewnigator is a simple Angular Progressive Web App (PWA) with a small catalog of songs for Polish scouts.
 
-- Offline capability via PWA service workers.
-- Easy distribution through GitHub Pages and browser installs.
+## About
+
+Picture scouts sitting in the middle of a forest around a bonfire, singing songs with a guitar. There is no reliable signal and phones need to last all evening, so the app is built to work fully offline, cost nothing to run, and stay simple. Songs ship as static assets cached by a service worker; there is no backend. Hosting is GitHub Pages, and installing the PWA avoids app-store fees.
+
+The app and the song catalog are in Polish. Repository documentation is in English; see [AGENTS.md](AGENTS.md) for the mission, guiding principles, architecture, and song-maintenance rules.
 
 ## Setup
 
@@ -36,7 +39,7 @@ Production build:
 npm run build
 ```
 
-Server build files
+Serve the production build locally:
 
 ```bash
 npm run http-server
@@ -50,36 +53,21 @@ npm run http-server
 Example:
 
 ```bash
-npx ng update @angular/core@21 @angular/cli@21 @angular-eslint/schematics@21
-npx ng update @angular/material@21
+npx ng update @angular/core@22 @angular/cli@22 @angular-eslint/schematics@22
+npx ng update @angular/material@22
 ```
 
 ### Notes on testing
 
 Tests run with Vitest in a Node/jsdom environment — no browser installation required. The `test` script also generates a coverage report.
 
-## Roadmap & guides
+## Roadmap
 
-Implemented / done:
+Remaining work / ideas:
 
-1. Parse song content (chords)
-2. Basic song display styling
-3. Basic application styling
-4. PWA support
-5. Deploy to GitHub Pages
-6. Icon / PWA styling updates
-7. Better GitHub Pages fallback (404)
-9. Sorting songs / search improvements
-10. Font size control
-11. Toggle chords visibility
-12. Convert songs file encoding
-14. Service layer song cache
+- Persist scroll-back position in the song list (testing).
 
-Planned / in progress:
-
-8. Add sticky navbar to stabilize scrolling
-13. Add app shell
-15. Scroll-back position persistence in list (testing)
+## Guides
 
 Helpful external guides:
 
@@ -92,7 +80,7 @@ Helpful external guides:
     - part 1: https://www.monterail.com/blog/pwa-working-offline
     - part 2: https://www.monterail.com/blog/pwa-offline-dynamic-data
 
-### Assest tools
+### Asset tools
 
 * [Android asset studio](http://romannurik.github.io/AndroidAssetStudio/index.html)
 * [pwa-asset-generator](https://github.com/onderceylan/pwa-asset-generator) (use with `npx`)
