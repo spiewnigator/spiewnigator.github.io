@@ -73,3 +73,12 @@ The codebase is a hybrid: components are standalone, while `SongModule` and the 
 * Use `class`/`style` bindings instead of `ngClass`/`ngStyle`.
 * Keep components small and focused on a single responsibility; prefer reactive forms.
 * Accessibility: meet WCAG AA and pass AXE checks (focus management, color contrast, ARIA attributes).
+
+## Browser (E2E) tests
+
+Playwright specs live in `e2e/`, outside `src/`, so neither the app build nor Vitest picks them up. They have a dedicated `tsconfig.e2e.json`; type-check with `npx tsc --noEmit -p tsconfig.e2e.json`. Run them with `npm run test:e2e` after `npx playwright install chromium`.
+
+* Prefer `getByRole` / `getByLabel` locators; use CSS only for structural containers without an accessible role.
+* Use Playwright's auto-retrying assertions — never `waitForTimeout`. The song search debounces for 200 ms.
+* Derive expectations from `src/assets/songs_structured.json` instead of hard-coding the catalog size.
+* Keep offline/service-worker scenarios separate from the default suite; the service worker is enabled only in production builds.
