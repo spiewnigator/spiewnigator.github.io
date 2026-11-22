@@ -22,9 +22,9 @@
       </mat-card-header>
       <mat-card-content>
         @for (component of song.content; track component) {
-          <div class="stanza" [style.margin-bottom]="settings.fontSize + 'px'">
+          <div class="stanza" [style.font-size]="settings.fontSize + 'px'">
             @for (line of component.lines; track line) {
-              <div class="line" [style.font-size]="settings.fontSize + 'px'">
+              <div class="line" [class.bold-text]="settings.boldText">
                 <span>{{line.text}}</span>
                 @if (!settings.hideChords) {
                   <span class="chord">{{line.chords}}</span>

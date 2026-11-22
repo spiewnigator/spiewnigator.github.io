@@ -7,15 +7,18 @@ test('settings persist across a reload', async ({ page }) => {
 
   const hideChords = page.getByRole('switch', { name: 'Ukryj akordy' });
   const fuzzy = page.getByRole('switch', { name: 'Wyszukiwanie przybliżone' });
+  const boldText = page.getByRole('switch', { name: 'Pogrubiony tekst' });
   const fontSize = page.getByRole('slider');
 
   await expect(hideChords).not.toBeChecked();
   await expect(fuzzy).not.toBeChecked();
+  await expect(boldText).not.toBeChecked();
   await expect(fontSize).toHaveAttribute('min', '12');
   await expect(fontSize).toHaveAttribute('max', '20');
 
   await hideChords.click();
   await fuzzy.click();
+  await boldText.click();
   await fontSize.focus();
   await fontSize.press('End'); // clamps at the slider maximum
 
@@ -23,12 +26,14 @@ test('settings persist across a reload', async ({ page }) => {
   expect(JSON.parse(stored ?? '{}')).toMatchObject({
     hideChords: true,
     enableFuzzySearch: true,
+    boldText: true,
     fontSize: 20,
   });
 
   await page.reload();
   await expect(page.getByRole('switch', { name: 'Ukryj akordy' })).toBeChecked();
   await expect(page.getByRole('switch', { name: 'Wyszukiwanie przybliżone' })).toBeChecked();
+  await expect(page.getByRole('switch', { name: 'Pogrubiony tekst' })).toBeChecked();
   await expect(page.getByRole('slider')).toHaveValue('20');
 });
 

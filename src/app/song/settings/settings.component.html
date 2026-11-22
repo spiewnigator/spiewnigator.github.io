@@ -19,6 +19,13 @@
 	</div>
 
 	<div class="settings-row">
+		<div class="label">Pogrubiony tekst</div>
+		<div class="control">
+			<mat-slide-toggle aria-label="Pogrubiony tekst" [checked]="settings.boldText" (change)="setBoldText($event.checked)"></mat-slide-toggle>
+		</div>
+	</div>
+
+	<div class="settings-row">
 		<div class="label">(Eksperymentalne) Włącz wyszukiwanie przybliżone</div>
 		<div class="control">
 			<mat-slide-toggle aria-label="Wyszukiwanie przybliżone" [checked]="settings.enableFuzzySearch" (change)="setEnableFuzzySearch($event.checked)"></mat-slide-toggle>
